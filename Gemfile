@@ -8,7 +8,7 @@ group :development, :test do
   gem 'rspec-rails'
 
   # fsevent is a dependency of guard for OSX
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fsevent'
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'spork'

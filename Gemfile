@@ -2,9 +2,16 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'pg'
+gem 'bootstrap-sass'
 
 group :development, :test do
   gem 'rspec-rails'
+
+  # fsevent is a dependency of guard for OSX
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'spork'
 end
 
 # Gems used only for assets and not required

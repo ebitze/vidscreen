@@ -1,5 +1,5 @@
 Vidscreen::Application.routes.draw do
-
+  resources :users
   root to: 'static_pages#home'
 
   match '/faq',    to: 'static_pages#faq'

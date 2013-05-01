@@ -16,6 +16,11 @@ describe "StaticPages" do
     let(:page_title)  { '' }
 
     it_should_behave_like "all static pages"
+    
+    describe "Click sign up button" do
+      before { click_link "signup" }
+      it { should have_selector('title', text: 'Sign up') }
+    end
   end
 
   describe "Help page" do

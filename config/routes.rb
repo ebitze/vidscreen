@@ -1,11 +1,15 @@
 Vidscreen::Application.routes.draw do
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+
   root to: 'static_pages#home'
 
-  match '/faq',    to: 'static_pages#faq'
-  match '/help',   to: 'static_pages#help'
+  match '/faq',     to: 'static_pages#faq'
+  match '/help',    to: 'static_pages#help'
   match '/contact', to: 'static_pages#contact'
-  match '/signup', to: 'users#new'
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

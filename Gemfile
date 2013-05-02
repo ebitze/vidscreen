@@ -4,6 +4,8 @@ gem 'rails', '3.2.13'
 gem 'pg'
 gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'rspec-rails'

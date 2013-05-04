@@ -33,8 +33,39 @@ describe User do
   it { should respond_to(:admin) }
   it { should respond_to(:vidposts) }
   it { should respond_to(:feed) }
+  it { should respond_to(:relationships) }
+  it { should respond_to(:followed_users) }
+  it { should respond_to(:following?) }
+  it { should respond_to(:follow!) }
+  it { should respond_to(:unfollow!) }
+  it { should respond_to(:reverse_relationships) }
+  it { should respond_to(:followers) }
 
   it { should_not be_admin }
+
+  describe "following" do
+    let(:other_user) { FactoryGirl.create(:user) }
+    before do
+      @user.save
+      @user.follow!(other_user)
+    end
+
+    it { should be_following(other_user) }
+    its(:followed_users) { should include(other_user) }
+
+    describe "follwoed user" do
+      subject { other_user }
+      its(:followers) { should include(@user) }
+    end
+
+    describe "and unfollowing" do
+      before{ @user.unfollow!(other_user) }
+
+      it{ should_not be_following(other_user) }
+      its(:followed_users) { should_not include(other_user) }
+    end
+
+  end
 
   describe "vidpost associations" do
 
@@ -64,9 +95,21 @@ describe User do
         FactoryGirl.create(:vidpost, user: FactoryGirl.create(:user))
       end
 
+      let(:followed_user) { FactoryGirl.create(:user) }
+
+      before do
+        @user.follow!(followed_user)
+        3.times { followed_user.vidposts.create!(vid_id: "Oxk2y6u8aJo") }
+      end
+
       its(:feed) { should include(newer_vidpost) }
       its(:feed) { should include(older_vidpost) }
       its(:feed) { should_not include(unfollowed_post) }
+      its(:feed) do
+        followed_user.vidposts.each do |vidpost|
+          should include(vidpost)
+        end
+      end
     end
   end
 

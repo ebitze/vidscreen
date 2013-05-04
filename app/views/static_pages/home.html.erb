@@ -1,10 +1,26 @@
-<div class="center hero-unit">
-  <h1>VIDSCREEN ON</h1>
-  <h2>
-    <%= render "videos/video" %>
-  </h2>
-
-  <%= link_to "Sign up for Vidscreen", signup_path, class: "btn btn-large btn-primary", id: "signup" %>
-</div>
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+        <%= render 'shared/vidpost_form' %>
+      </section>
+    </aside>
+    <div class="span8">
+      <h3>Vidscreen Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+<% else %>
+  <div class="center hero-unit">
+    <h1>VIDSCREEN ON</h1>
+    <h2>
+      <%= render "videos/video" %>
+    </h2>
+    <%= link_to "Sign up for Vidscreen", signup_path, class: "btn btn-large btn-primary", id: "signup" %>
+  </div>
+<% end %>
 
 

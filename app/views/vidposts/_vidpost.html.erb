@@ -1,0 +1,9 @@
+<li>
+<span class="video"><%= vidpost.vid_id %></span>
+<span class="timestamp">
+  Posted <%= time_ago_in_words(vidpost.created_at) %> ago.
+</span>
+<% if current_user?(vidpost.user) %>
+  <%= render 'shared/delete_link', object: vidpost %>
+<% end %> 
+</li>

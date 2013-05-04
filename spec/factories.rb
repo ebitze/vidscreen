@@ -9,4 +9,9 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :vidpost do
+    vid_id "vYNnPx8fZBs"
+    user
+  end
 end

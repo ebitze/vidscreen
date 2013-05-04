@@ -9,6 +9,7 @@
 #  updated_at      :datetime         not null
 #  password_digest :string(255)
 #  remember_token  :string(255)
+#  admin           :boolean          default(FALSE)
 #
 
 require 'spec_helper'
@@ -30,8 +31,44 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
+  it { should respond_to(:vidposts) }
+  it { should respond_to(:feed) }
 
   it { should_not be_admin }
+
+  describe "vidpost associations" do
+
+    before { @user.save }
+    let!(:older_vidpost) do 
+      FactoryGirl.create(:vidpost, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_vidpost) do
+      FactoryGirl.create(:vidpost, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right vidposts in the right order" do
+      @user.vidposts.should == [newer_vidpost, older_vidpost]
+    end
+
+    it "should destroy associated vidposts" do
+      vidposts = @user.vidposts.dup
+      @user.destroy
+      vidposts.should_not be_empty
+      vidposts.each do |vidpost|
+        Vidpost.find_by_id(vidpost.id).should be_nil
+      end
+    end
+
+    describe "status" do
+      let(:unfollowed_post) do
+        FactoryGirl.create(:vidpost, user: FactoryGirl.create(:user))
+      end
+
+      its(:feed) { should include(newer_vidpost) }
+      its(:feed) { should include(older_vidpost) }
+      its(:feed) { should_not include(unfollowed_post) }
+    end
+  end
 
   describe "with admin attribute set to 'true'" do
     before do

@@ -1,0 +1,7 @@
+<%= form_for(@vidpost) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.text_area :vid_id, placeholder: "Enter a Youtube Video ID or URL." %>
+  </div>
+  <%= f.submit "Post", class: "btn bth-large btn-primary" %>
+<% end %>

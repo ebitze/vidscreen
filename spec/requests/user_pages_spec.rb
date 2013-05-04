@@ -92,10 +92,19 @@ describe "User pages" do
 
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:m1) { FactoryGirl.create(:vidpost, user: user, vid_id: "www.youtube.com/watch?v=LQaOB44Iy5E") }
+    let!(:m2) { FactoryGirl.create(:vidpost, user: user, vid_id: "www.youtube.com/watch?v=rwnnX2MNYGw") }
+    
     before { visit user_path(user) }
 
     it { should have_selector('h1',     text: user.name) }
     it { should have_selector('title',  text: user.name) }
+
+    describe "vidposts" do
+      it { should have_content(m1.vid_id) }
+      it { should have_content(m2.vid_id) }
+      it { should have_content(user.vidposts.count) }
+    end
   end
 
   describe "signup page" do

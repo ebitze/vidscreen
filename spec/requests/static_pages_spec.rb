@@ -21,6 +21,22 @@ describe "StaticPages" do
       before { click_link "signup" }
       it { should have_selector('title', text: 'Sign up') }
     end
+
+    describe "for signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        FactoryGirl.create(:vidpost, user: user, vid_id: "www.youtube.com/watch?v=LQaOB44Iy5E")
+        FactoryGirl.create(:vidpost, user: user, vid_id: "www.youtube.com/watch?v=rwnnX2MNYGw")
+        sign_in user
+        visit root_path
+      end
+
+      it "should render the user's feed" do
+        user.feed.each do |item|
+          page.should have_selector("li##{item.id}", text: item.vid_id)
+        end
+      end
+    end
   end
 
   describe "Help page" do

@@ -1,5 +1,15 @@
 @import "bootstrap";
 
+$grayMediumLight: #eaeaea;
+
+/* mixins, variables, etc */
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 /* universal */
 
 html {
@@ -86,4 +96,56 @@ p {
 .field_with_errors {
   @extend .control-group;
   @extend .error;
+}
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  height: auto;
+  @include box-sizing;
+}
+
+input {
+  height: auto !important;
+}
+
+/* vidposts */
+
+aside {
+
+  textarea {
+    height: 80px;
+    margin-bottom: 5px;
+  }
+}
+
+/* feed */
+
+td {
+  padding-top: 20px;
+  vertical-align: top;
+}
+
+/* user feed on profile page */
+
+ul.user_vidposts
+{
+  list-style-type: none;
+}
+
+ul.user_vidposts li
+{
+  padding-top: 20px
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
 }

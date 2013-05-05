@@ -9,6 +9,9 @@ class StaticPagesController < ApplicationController
   def help
   end
 
+  def watch
+  end
+
   def contact
   end
 

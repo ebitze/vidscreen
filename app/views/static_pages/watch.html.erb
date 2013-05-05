@@ -1,0 +1,16 @@
+<div class="center hero-unit">
+  
+  <%= javascript_include_tag "swfobject" %> 
+
+  <div id="ytapiplayer">
+    You need Flash player 8+ and JavaScript enabled to view this video.
+  </div>
+
+  <script type="text/javascript">
+
+    var params = { allowScriptAccess: "always" };
+    var atts = { id: "myytplayer" };
+swfobject.embedSWF("<%= "http://www.youtube.com/v/" + current_user.feed[1].vid_id %>",
+    "ytapiplayer", "820", "650", "8", null, null, params, atts);
+  </script>
+</div>

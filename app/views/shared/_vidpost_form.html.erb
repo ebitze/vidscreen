@@ -1,4 +1,4 @@
-<%= form_for(@vidpost) do |f| %>
+<%= form_for(@vidpost, remote: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_area :vid_id, placeholder: "Enter a Youtube Video ID or URL." %>

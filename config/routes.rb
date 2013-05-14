@@ -18,6 +18,7 @@ Vidscreen::Application.routes.draw do
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/watch', to: 'static_pages#watch'
+  match '/feed_item', to: 'users#get_feed_item'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

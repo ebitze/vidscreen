@@ -10,6 +10,14 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def get_feed_item
+    @feed_item_id = current_user.feed[params[:feed_item_id].to_i].vid_id
+
+    respond_to do |format|
+      format.text { render text: @feed_item_id}
+    end
+  end
+
   def following
     @title = "Following"
     @user = User.find(params[:id])

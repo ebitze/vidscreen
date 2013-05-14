@@ -8,8 +8,11 @@ class VidpostsController < ApplicationController
   def create
     @vidpost = current_user.vidposts.build(params[:vidpost])
     if @vidpost.save
-      flash[:success] = "Video posted!"
-      redirect_to root_url
+  #   flash[:success] = "Video posted!"
+      respond_to do |format|
+        format.html {redirect_to root_url}
+        format.js
+      end
     else
       @feed_items = []
       render 'static_pages/home'
@@ -18,7 +21,10 @@ class VidpostsController < ApplicationController
 
   def destroy
     @vidpost.destroy
-    redirect_to root_url
+    respond_to do |format|
+      format.html {redirect_to root_url}
+      format.js
+    end
   end
 
   private

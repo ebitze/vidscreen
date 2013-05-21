@@ -1,2 +1,3 @@
-$('#jscript_wrapper').prepend('<%= j render 'shared/feed_item', feed_item: @vidpost %>');
+$('#vidpost_feed').prepend('<%= j render 'shared/feed_item', feed_item: @vidpost %>');
 $('#vidpost_vid_id').val('');
+$('#vidpost_count').html('<%= pluralize(current_user.vidposts.count, "videos") %>')

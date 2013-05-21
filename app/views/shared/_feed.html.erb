@@ -1,5 +1,5 @@
 <% if @feed_items.any? %>
-  <table class="vidpost_feed">
+  <table id="vidpost_feed">
     <%= render partial: 'shared/feed_item', collection: @feed_items %>
   </table>
   <%= will_paginate @feed_items %>

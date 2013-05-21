@@ -1,1 +1,2 @@
 $('#<%= @vidpost.id %>').remove();
+$('#vidpost_count').html('<%= pluralize(current_user.vidposts.count, "videos") %>')

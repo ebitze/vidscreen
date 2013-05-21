@@ -1,6 +1,8 @@
 <% provide(:title, 'Help') %>
-<h1>Help</h1>
-<p>
+<div class="hero-unit">
+  <h1>Help</h1>
+  <p>
+  <br>
 Vidscreen is simple. If you've used Twitter, you'll understand Vidscreen.
 <br><br>
 If you find a video you like on YouTube, post it to Vidscreen. That video will
@@ -9,5 +11,13 @@ become a part of your followers' feeds.
 Likewise, your feed will consist
 of videos posted by the people you follow.  You can think of your feed
 as a video channel curated by the people you follow.
+<br><br>
+After you sign up for an account, click "Users" on the navigation bar
+to find people to follow, click "Home" to see your feed and to add videos, and click
+"WATCH" to view a channel based on your feed.
+<br><br>
 </p>
-
+<% if !signed_in? %>
+  <%= link_to "Sign up for Vidscreen", signup_path, class: "btn btn-large", id: "signup" %>
+<% end %>
+</div>

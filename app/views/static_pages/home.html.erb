@@ -23,9 +23,10 @@
   <div class="center hero-unit">
     <h1>VIDSCREEN ON</h1>
     <h2>
-      <%= render "videos/video", width: 820 , height: 650 , vid_id: "epUk3T2Kfno" %>
+      <%= render "videos/video", width: 820 , height: 350, vid_id: "8deYjcgVgm8" %>
     </h2>
-    <%= link_to "Sign up for Vidscreen", signup_path, class: "btn btn-large btn-primary", id: "signup" %>
+    <%= link_to "Sign up for Vidscreen", signup_path, class: "btn btn-large pull-left", id: "signup" %>
+    <%= link_to "What is this and how does it work?", help_path, class: "btn btn-large pull-right", id: "help" %>
   </div>
 <% end %>
 

@@ -129,8 +129,8 @@ describe "User pages" do
     it { should have_selector('title',  text: user.name) }
 
     describe "vidposts" do
-      it { should have_content(m1.vid_id) }
-      it { should have_content(m2.vid_id) }
+      it { should have_selector("iframe[src=\"http://www.youtube.com/embed/#{m1.vid_id}\"]") }
+      it { should have_selector("iframe[src=\"http://www.youtube.com/embed/#{m2.vid_id}\"]") }
       it { should have_content(user.vidposts.count) }
     end
 

@@ -33,7 +33,9 @@ describe "StaticPages" do
 
       it "should render the user's feed" do
         user.feed.each do |item|
-          page.should have_selector("li##{item.id}", text: item.vid_id)
+          page.should have_selector("tr##{item.id}")
+          page.should have_selector('iframe[src="http://www.youtube.com/embed/LQaOB44Iy5E"]')
+          page.should have_selector('iframe[src="http://www.youtube.com/embed/rwnnX2MNYGw"]')
         end
       end
 

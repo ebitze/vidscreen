@@ -1,0 +1,7 @@
+$('.user_vidposts').append('<%= j render(@vidposts) %>');
+
+<% if @vidposts.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@vidposts) %>');
+<% else %>
+  $('.pagination').remove();
+<% end %>

@@ -19,6 +19,7 @@ Vidscreen::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/watch', to: 'static_pages#watch'
   match '/feed_item', to: 'users#get_feed_item'
+  match '/resend_password', to: 'static_pages#resend_password'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

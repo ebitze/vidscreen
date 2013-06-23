@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   end
 
   def get_feed_item
-    @feed_item_id = current_user.feed[params[:feed_item_id].to_i].vid_id
+    count = current_user.feed.count
+    @feed_item_id = current_user.feed[(params[:feed_item_id].to_i) % count].vid_id
 
     respond_to do |format|
       format.text { render text: @feed_item_id}

@@ -1,6 +1,12 @@
- <div align="center" id="player"></div>
+<div align="center" id="player"></div>
+<br><br>
+<div>
 
-  <script>
+  <%= link_to "Back", '#', class: "btn btn-large pull-left", id: "back" %>
+  <%= link_to "Next", '#', class: "btn btn-large pull-right", id: "next" %>
+</div>
+
+<script>
     // 2. This code loads the IFrame Player API code asynchronously.
     var tag = document.createElement('script');
 
@@ -12,13 +18,20 @@
       //    after the API code downloads.
       var player;
       var feed_index = 1;
-      var vid_id = "hORUSzOvUfM";
+      var current_vid_id;
+      var next_vid_id;
+      var last_vid_id;
 
       function onYouTubeIframeAPIReady() {
+
+        current_vid_id = '<%= current_user.feed[0].vid_id %>';
+        last_vid_id = '<%= current_user.feed[-1].vid_id %>';
+        next_vid_id = '<%= current_user.feed[1].vid_id %>';
+
         player = new YT.Player('player', {
           height: '705',
           width: '940',
-          videoId: '<%= current_user.feed[0].vid_id %>',
+          videoId: current_vid_id,
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -29,12 +42,13 @@
       // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
         event.target.playVideo();
-        getNewVideoId();
       }
 
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.ENDED ) {
-          player.loadVideoById(vid_id);
+          player.loadVideoById(next_vid_id);
+          last_vid_id = current_vid_id;
+          current_vid_id = next_vid_id
           feed_index++; 
           getNewVideoId();
         };
@@ -47,10 +61,40 @@
             data: { feed_item_id: feed_index },
             dataType: 'text',
             success: function(data){
-              vid_id = data;
+              next_vid_id = data;
             }
-          });
+          })
+        }
+        
+        function getLastVideoId() {
+          $.ajax({
+            type: 'GET',
+            url: '/feed_item',
+            data: { feed_item_id: (feed_index - 2) },
+            dataType: 'text',
+            success: function(data){
+              last_vid_id = data;
+            }
+          })
+        }
+        
+        document.getElementById('next').onclick = function(){
+          player.loadVideoById(next_vid_id);
+          last_vid_id = current_vid_id;
+          current_vid_id = next_vid_id
+          feed_index++; 
+          getNewVideoId();
         }
 
+        document.getElementById('back').onclick = function(){
+          player.loadVideoById(last_vid_id);
+          next_vid_id = current_vid_id;
+          current_vid_id = last_vid_id;
+          feed_index--; 
+          getLastVideoId();
+        }
+
+
     </script>
+
 
